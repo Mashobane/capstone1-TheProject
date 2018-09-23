@@ -56,7 +56,7 @@ public class CollideWith extends AbstractView {
 			ballSpeed[Y] = 0;
 
 			return true;
-		} else if (yBallPosition - Settings.BALL_SIZE / 2 == 0) {
+		} else if (yBallPosition - Settings.BALL_SIZE / 2 <= 0) {
 			ySpeed = -ySpeed;
 
 			ballSpeed[X] = xSpeed;
