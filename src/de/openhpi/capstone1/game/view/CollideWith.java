@@ -43,7 +43,7 @@ public class CollideWith extends AbstractView {
 				(yBallPosition + Settings.BALL_SIZE / 2) - (int) (Settings.WINDOW_HEIGHT - Settings.PADDLE_HEIGHT));
 
 		if ((xBallPosition + Settings.BALL_SIZE / 2 == Settings.WINDOW_WIDTH)
-				|| (xBallPosition - Settings.BALL_SIZE / 2 == 0)) {
+				|| (xBallPosition - Settings.BALL_SIZE / 2 <= 0)) {
 			xSpeed = -xSpeed;
 
 			ballSpeed[X] = xSpeed;
@@ -67,11 +67,9 @@ public class CollideWith extends AbstractView {
 
 				ySpeed = -ySpeed;
 
-				if (xPaddlePosition >= Settings.WINDOW_WIDTH) {
-					xSpeed = xSpeed + 1;
+				if (xPaddlePosition + Settings.PADDLE_WIDTH >= Settings.WINDOW_WIDTH) {
 					xSpeed += 1;
 				} else {
-					xSpeed = xSpeed - 1;
 					xSpeed -= 1;
 				}
 
