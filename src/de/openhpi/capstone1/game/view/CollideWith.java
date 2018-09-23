@@ -14,7 +14,7 @@ public class CollideWith extends AbstractView {
 	/** The Constant Y Coordinate Position. */
 	public static final int Y = 1;
 
-	/** The ball speed. */
+	/** The ball X,Y speed. */
 	int[] ballSpeed = new int[2];
 
 	/**
@@ -69,8 +69,10 @@ public class CollideWith extends AbstractView {
 
 				if (xPaddlePosition >= Settings.WINDOW_WIDTH) {
 					xSpeed = xSpeed + 1;
+					xSpeed += 1;
 				} else {
 					xSpeed = xSpeed - 1;
+					xSpeed -= 1;
 				}
 
 				ballSpeed[X] = xSpeed;
