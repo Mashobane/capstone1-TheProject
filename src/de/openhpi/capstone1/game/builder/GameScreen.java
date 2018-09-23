@@ -32,14 +32,4 @@ public class GameScreen extends InteractiveComponent {
 
 		views.add(ball);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.openhpi.capstone1.game.builder.InteractiveComponent#handleEvent()
-	 */
-	@Override
-	public void handleEvent() {
-		// Not needed
-	}
 }
