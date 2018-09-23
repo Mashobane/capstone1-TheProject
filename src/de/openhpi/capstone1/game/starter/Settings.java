@@ -57,7 +57,7 @@ public final class Settings {
 			.floor(Math.min(WINDOW_HEIGHT, WINDOW_WIDTH) * BALL_SIZE_MULTIPLICATOR);
 
 	/** The Constant BALL_SPEED. */
-	public static final float BALL_SPEED = 8;
+	public static final float BALL_SPEED = 6;
 
 	/** The Constant BALL_INVARIANCE. */
 	public static final int BALL_INVARIANCE = 5;
