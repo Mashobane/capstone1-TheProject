@@ -2,6 +2,7 @@ package de.openhpi.capstone1.game.starter;
 
 import java.awt.Color;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Settings.
  */
@@ -57,6 +58,9 @@ public final class Settings {
 
 	/** The Constant BALL_SPEED. */
 	public static final float BALL_SPEED = 8;
+
+	/** The Constant BALL_INVARIANCE. */
+	public static final int BALL_INVARIANCE = 5;
 
 	// [=====================] Misc. [=====================]
 	/** The Constant SPACER_SMALL. */

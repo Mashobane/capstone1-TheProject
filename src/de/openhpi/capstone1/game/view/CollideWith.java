@@ -61,7 +61,7 @@ public class CollideWith extends AbstractView {
 
 			ballSpeed[X] = xSpeed;
 			ballSpeed[Y] = ySpeed;
-		} else if (d < 5) {
+		} else if (d < Settings.BALL_INVARIANCE) {
 			if (xBallPosition + Settings.BALL_SIZE >= xPaddlePosition && xBallPosition
 					+ Settings.BALL_SIZE <= xPaddlePosition + (int) Settings.PADDLE_WIDTH + Settings.BALL_SIZE) {
 
