@@ -20,9 +20,6 @@ public class Paddle extends AbstractView {
 	/** The changes. */
 	private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
-	/** The prv. */
-	Tryfun prv = new Tryfun(display);
-
 	/**
 	 * Instantiates a new paddle.
 	 *
@@ -39,7 +36,7 @@ public class Paddle extends AbstractView {
 	 * @return the float
 	 */
 	private float checkBoundaries(final float mouseX) {
-		return prv.limit(mouseX);
+		return PApplet.constrain(mouseX, 0, Settings.WINDOW_WIDTH - Settings.PADDLE_WIDTH);
 	}
 
 	/**
