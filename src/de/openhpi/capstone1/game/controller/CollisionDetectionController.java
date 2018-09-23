@@ -50,7 +50,7 @@ public class CollisionDetectionController extends Controller {
 			getBallSpeed()[Y] = ySpeed;
 		} else if (yBallPosition + Settings.BALL_SIZE / 2 == Settings.WINDOW_HEIGHT) {
 			// ball collided with bottom edge of the screen?
-			System.out.println("Game Over");
+			GameState.GameOver();
 
 			getBallSpeed()[X] = 0;
 			getBallSpeed()[Y] = 0;

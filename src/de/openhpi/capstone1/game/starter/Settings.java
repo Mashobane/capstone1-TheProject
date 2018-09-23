@@ -64,4 +64,11 @@ public final class Settings {
 	// [=====================] Misc. [=====================]
 	/** The Constant SPACER_SMALL. */
 	public static final float SPACER_SMALL = Math.min(WINDOW_HEIGHT, WINDOW_WIDTH) * 0.01f;
+
+	// [=====================] Text [=====================]
+	/** The Constant TEXT_COLOR. */
+	public static final int TEXT_COLOR = Color.BLACK.getRGB();
+
+	/** The Constant TEXT_SIZE_MULTIPLICATOR. */
+	public static final float TEXT_SIZE_MULTIPLICATOR = 0.07f;
 }

@@ -20,11 +20,6 @@ public abstract class InteractiveComponent {
 		this.display = display;
 	}
 
-	/**
-	 * Handle event.
-	 */
-	public abstract void handleEvent();
-
 	/** The views. */
 	protected ArrayList<AbstractView> views;
 
