@@ -9,20 +9,35 @@ import processing.core.PConstants;
  */
 public class Ball extends AbstractView {
 
-	/** The first. */
-	int first = 0;
+	/** The Constant X Coordinate Position. */
+	private static final int X = 0;
 
-	/** The cord. */
-	int[] cord = new int[2];
+	/** The Constant Y Coordinate Position. */
+	private static final int Y = 1;
+
+	/** The first. */
+	private int first = 0;
 
 	/** The paddle X position. */
 	private int paddleXPosition = 0;
 
-	/** The movement. */
-	BallMove movement = new BallMove(display);
+	/** The x. */
+	private int xPosition;
+
+	/** The y. */
+	private int yPosition;
+
+	/** The xSpeed. */
+	private int xSpeed;
+
+	/** The ySpeed. */
+	private int ySpeed;
+
+	/** The ball coordinates. */
+	private int[] ballCoord = new int[2];
 
 	/** The collision. */
-	CollideWith collision = new CollideWith(display);
+	private final CollideWith collision = new CollideWith(display);
 
 	/**
 	 * Instantiates a new ball.
@@ -31,6 +46,54 @@ public class Ball extends AbstractView {
 	 */
 	public Ball(final PApplet display) {
 		super(display);
+	}
+
+	/**
+	 * Sets the speed.
+	 *
+	 * @param xSpeed the x speed
+	 * @param ySpeed the y speed
+	 */
+	public void setSpeed(final int xSpeed, final int ySpeed) {
+
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+	}
+
+	/**
+	 * Move.
+	 *
+	 * @return the int[]
+	 */
+	public int[] move() {
+		this.xPosition += xSpeed;
+		this.yPosition += ySpeed;
+
+		this.ballCoord[X] = this.xPosition;
+		this.ballCoord[Y] = this.yPosition;
+
+		this.xPosition = PApplet.constrain(this.xPosition, Settings.BALL_SIZE / 2,
+				Settings.WINDOW_WIDTH - Settings.BALL_SIZE / 2);
+		this.yPosition = PApplet.constrain(this.yPosition, Settings.BALL_SIZE / 2,
+				Settings.WINDOW_HEIGHT - Settings.BALL_SIZE / 2);
+
+		return ballCoord;
+	}
+
+	/**
+	 * Random start.
+	 */
+	public void randomStart() {
+		this.xPosition = Settings.WINDOW_WIDTH / 2;
+		this.yPosition = Settings.WINDOW_HEIGHT / 2;
+
+		this.xSpeed = Math.round((Math.abs(display.random(Settings.BALL_SPEED * 2) - Settings.BALL_SPEED)));
+		this.ySpeed = (int) Math.sqrt(Math.pow(Settings.BALL_SPEED, 2) - this.xSpeed * this.xSpeed)
+				+ (int) (display.random(2));
+
+		while (this.ySpeed == 0) {
+			this.ySpeed = (int) Math.sqrt(Math.pow(Settings.BALL_SPEED, 2) - this.xSpeed * this.xSpeed);
+		}
 	}
 
 	/*
@@ -44,20 +107,20 @@ public class Ball extends AbstractView {
 		display.fill(Settings.BALL_COLOR);
 
 		if (first == 0) {
-			movement.randomStart();
-			cord = movement.move();
-			display.ellipse(cord[0], cord[1], Settings.BALL_SIZE, Settings.BALL_SIZE);
+			randomStart();
+			ballCoord = move();
+			display.ellipse(ballCoord[X], ballCoord[Y], Settings.BALL_SIZE, Settings.BALL_SIZE);
 			first = 1;
 		} else {
-			if (collision.collideWithWall(movement.x, movement.y, movement.xspeed, movement.yspeed, paddleXPosition)) {
-				movement.randomStart();
-				cord = movement.move();
-				display.ellipse(cord[0], cord[1], Settings.BALL_SIZE, Settings.BALL_SIZE);
+			if (collision.collideWithWall(xPosition, yPosition, xSpeed, ySpeed, paddleXPosition)) {
+				randomStart();
+				ballCoord = move();
+				display.ellipse(ballCoord[X], ballCoord[Y], Settings.BALL_SIZE, Settings.BALL_SIZE);
 			} else {
-				collision.collideWithWall(movement.x, movement.y, movement.xspeed, movement.yspeed, paddleXPosition);
-				movement.setSpeed(collision.ballSpeed[0], collision.ballSpeed[1]);
-				cord = movement.move();
-				display.ellipse(cord[0], cord[1], Settings.BALL_SIZE, Settings.BALL_SIZE);
+				collision.collideWithWall(xPosition, yPosition, xSpeed, ySpeed, paddleXPosition);
+				setSpeed(collision.ballSpeed[X], collision.ballSpeed[Y]);
+				ballCoord = move();
+				display.ellipse(ballCoord[X], ballCoord[Y], Settings.BALL_SIZE, Settings.BALL_SIZE);
 			}
 		}
 	}

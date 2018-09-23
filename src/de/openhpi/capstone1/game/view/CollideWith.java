@@ -8,6 +8,12 @@ import processing.core.PApplet;
  */
 public class CollideWith extends AbstractView {
 
+	/** The Constant X Coordinate Position. */
+	public static final int X = 0;
+
+	/** The Constant Y Coordinate Position. */
+	public static final int Y = 1;
+
 	/** The ball speed. */
 	int[] ballSpeed = new int[2];
 
@@ -24,49 +30,55 @@ public class CollideWith extends AbstractView {
 	/**
 	 * Collide with wall.
 	 *
-	 * @param xball  the xball
-	 * @param yball  the yball
-	 * @param xspeed the xspeed
-	 * @param yspeed the yspeed
-	 * @param xpad   the xpad
+	 * @param xBallPosition   the xBallPosition
+	 * @param yBallPosition   the yBall Position
+	 * @param xSpeed          the xSpeed
+	 * @param ySpeed          the ySpeed
+	 * @param xPaddlePosition the xPaddlePosition
 	 * @return true, if successful
 	 */
-	public boolean collideWithWall(final int xball, final int yball, int xspeed, int yspeed, final int xpad) {
-		final int d = Math
-				.abs((yball + Settings.BALL_SIZE / 2) - (int) (Settings.WINDOW_HEIGHT - Settings.PADDLE_HEIGHT));
+	public boolean collideWithWall(final int xBallPosition, final int yBallPosition, int xSpeed, int ySpeed,
+			final int xPaddlePosition) {
+		final int d = Math.abs(
+				(yBallPosition + Settings.BALL_SIZE / 2) - (int) (Settings.WINDOW_HEIGHT - Settings.PADDLE_HEIGHT));
 
-		if ((xball + Settings.BALL_SIZE / 2 == Settings.WINDOW_WIDTH) || (xball - Settings.BALL_SIZE / 2 == 0)) {
-			xspeed = -xspeed;
-			ballSpeed[0] = xspeed;
-			ballSpeed[1] = yspeed;
-		} else if (yball + Settings.BALL_SIZE / 2 == Settings.WINDOW_HEIGHT) {
+		if ((xBallPosition + Settings.BALL_SIZE / 2 == Settings.WINDOW_WIDTH)
+				|| (xBallPosition - Settings.BALL_SIZE / 2 == 0)) {
+			xSpeed = -xSpeed;
+
+			ballSpeed[X] = xSpeed;
+			ballSpeed[Y] = ySpeed;
+		} else if (yBallPosition + Settings.BALL_SIZE / 2 == Settings.WINDOW_HEIGHT) {
 			// ball collided with bottom edge of the screen?
 			System.out.println("Game Over");
-			ballSpeed[0] = 0;
-			ballSpeed[1] = 0;
+
+			ballSpeed[X] = 0;
+			ballSpeed[Y] = 0;
 
 			return true;
-		} else if (yball - Settings.BALL_SIZE / 2 == 0) {
-			yspeed = -yspeed;
-			ballSpeed[0] = xspeed;
-			ballSpeed[1] = yspeed;
-		} else if (d < 5) {
-			if (xball + Settings.BALL_SIZE >= xpad
-					&& xball + Settings.BALL_SIZE <= xpad + (int) Settings.PADDLE_WIDTH + 30) {
+		} else if (yBallPosition - Settings.BALL_SIZE / 2 == 0) {
+			ySpeed = -ySpeed;
 
-				yspeed = -yspeed;
-				if (xpad >= Settings.WINDOW_WIDTH) {
-					xspeed = xspeed + 1;
+			ballSpeed[X] = xSpeed;
+			ballSpeed[Y] = ySpeed;
+		} else if (d < 5) {
+			if (xBallPosition + Settings.BALL_SIZE >= xPaddlePosition && xBallPosition
+					+ Settings.BALL_SIZE <= xPaddlePosition + (int) Settings.PADDLE_WIDTH + Settings.BALL_SIZE) {
+
+				ySpeed = -ySpeed;
+
+				if (xPaddlePosition >= Settings.WINDOW_WIDTH) {
+					xSpeed = xSpeed + 1;
 				} else {
-					xspeed = xspeed - 1;
+					xSpeed = xSpeed - 1;
 				}
 
-				ballSpeed[0] = xspeed;
-				ballSpeed[1] = yspeed;
+				ballSpeed[X] = xSpeed;
+				ballSpeed[Y] = ySpeed;
 			}
 		} else {
-			ballSpeed[0] = xspeed;
-			ballSpeed[1] = yspeed;
+			ballSpeed[X] = xSpeed;
+			ballSpeed[Y] = ySpeed;
 		}
 
 		return false;
