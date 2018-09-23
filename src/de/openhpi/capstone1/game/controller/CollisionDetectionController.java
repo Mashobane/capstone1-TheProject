@@ -1,4 +1,4 @@
-package de.openhpi.capstone1.game.view;
+package de.openhpi.capstone1.game.controller;
 
 import de.openhpi.capstone1.game.starter.Settings;
 import processing.core.PApplet;
@@ -6,7 +6,7 @@ import processing.core.PApplet;
 /**
  * The Class CollideWith.
  */
-public class CollideWith extends AbstractView {
+public class CollisionDetectionController extends Controller {
 
 	/** The Constant X Coordinate Position. */
 	public static final int X = 0;
@@ -15,7 +15,7 @@ public class CollideWith extends AbstractView {
 	public static final int Y = 1;
 
 	/** The ball X,Y speed. */
-	int[] ballSpeed = new int[2];
+	private int[] ballSpeed = new int[2];
 
 	/**
 	 * Instantiates a new collide with.
@@ -23,7 +23,7 @@ public class CollideWith extends AbstractView {
 	 * @param display the display
 	 */
 
-	public CollideWith(final PApplet display) {
+	public CollisionDetectionController(final PApplet display) {
 		super(display);
 	}
 
@@ -46,21 +46,21 @@ public class CollideWith extends AbstractView {
 				|| (xBallPosition - Settings.BALL_SIZE / 2 <= 0)) {
 			xSpeed = -xSpeed;
 
-			ballSpeed[X] = xSpeed;
-			ballSpeed[Y] = ySpeed;
+			getBallSpeed()[X] = xSpeed;
+			getBallSpeed()[Y] = ySpeed;
 		} else if (yBallPosition + Settings.BALL_SIZE / 2 == Settings.WINDOW_HEIGHT) {
 			// ball collided with bottom edge of the screen?
 			System.out.println("Game Over");
 
-			ballSpeed[X] = 0;
-			ballSpeed[Y] = 0;
+			getBallSpeed()[X] = 0;
+			getBallSpeed()[Y] = 0;
 
 			return true;
 		} else if (yBallPosition - Settings.BALL_SIZE / 2 <= 0) {
 			ySpeed = -ySpeed;
 
-			ballSpeed[X] = xSpeed;
-			ballSpeed[Y] = ySpeed;
+			getBallSpeed()[X] = xSpeed;
+			getBallSpeed()[Y] = ySpeed;
 		} else if (d < Settings.BALL_INVARIANCE) {
 			if (xBallPosition + Settings.BALL_SIZE >= xPaddlePosition && xBallPosition
 					+ Settings.BALL_SIZE <= xPaddlePosition + (int) Settings.PADDLE_WIDTH + Settings.BALL_SIZE) {
@@ -73,24 +73,32 @@ public class CollideWith extends AbstractView {
 					xSpeed -= 1;
 				}
 
-				ballSpeed[X] = xSpeed;
-				ballSpeed[Y] = ySpeed;
+				getBallSpeed()[X] = xSpeed;
+				getBallSpeed()[Y] = ySpeed;
 			}
 		} else {
-			ballSpeed[X] = xSpeed;
-			ballSpeed[Y] = ySpeed;
+			getBallSpeed()[X] = xSpeed;
+			getBallSpeed()[Y] = ySpeed;
 		}
 
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Gets the ball speed.
 	 *
-	 * @see de.openhpi.capstone1.game.view.AbstractView#update()
+	 * @return the ball speed
 	 */
-	@Override
-	public void update() {
+	public int[] getBallSpeed() {
+		return ballSpeed;
+	}
 
+	/**
+	 * Sets the ball speed.
+	 *
+	 * @param ballSpeed the new ball speed
+	 */
+	public void setBallSpeed(final int[] ballSpeed) {
+		this.ballSpeed = ballSpeed;
 	}
 }

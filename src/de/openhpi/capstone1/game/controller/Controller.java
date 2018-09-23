@@ -1,12 +1,14 @@
 package de.openhpi.capstone1.game.controller;
 
+import processing.core.PApplet;
+
 /**
  * The Interface Controller.
  */
-public interface Controller {
+public abstract class Controller {
+	protected PApplet display;
 
-	/**
-	 * Handle event.
-	 */
-	void handleEvent();
+	Controller(final PApplet display) {
+		this.display = display;
+	}
 }
