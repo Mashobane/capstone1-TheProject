@@ -2,7 +2,6 @@ package de.openhpi.capstone1.game.starter;
 
 import java.awt.Color;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Settings.
  */

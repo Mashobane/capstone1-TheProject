@@ -1,5 +1,6 @@
 package de.openhpi.capstone1.game.view;
 
+import de.openhpi.capstone1.game.controller.CollisionDetectionController;
 import de.openhpi.capstone1.game.starter.Settings;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -37,7 +38,7 @@ public class Ball extends AbstractView {
 	private int[] ballCoord = new int[2];
 
 	/** The collision. */
-	private final CollideWith collision = new CollideWith(display);
+	private final CollisionDetectionController collision = new CollisionDetectionController(display);
 
 	/**
 	 * Instantiates a new ball.
@@ -118,7 +119,7 @@ public class Ball extends AbstractView {
 				display.ellipse(ballCoord[X], ballCoord[Y], Settings.BALL_SIZE, Settings.BALL_SIZE);
 			} else {
 				collision.collideWithWall(xPosition, yPosition, xSpeed, ySpeed, paddleXPosition);
-				setSpeed(collision.ballSpeed[X], collision.ballSpeed[Y]);
+				setSpeed(collision.getBallSpeed()[X], collision.getBallSpeed()[Y]);
 				ballCoord = move();
 				display.ellipse(ballCoord[X], ballCoord[Y], Settings.BALL_SIZE, Settings.BALL_SIZE);
 			}
